@@ -1,0 +1,17 @@
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\bin\Debug\net9.0\Nova.Infra.deps.json
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\bin\Debug\net9.0\Nova.Infra.dll
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\bin\Debug\net9.0\Nova.Infra.pdb
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\bin\Debug\net9.0\Nova.Domain.dll
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\bin\Debug\net9.0\Nova.Domain.pdb
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.csproj.AssemblyReference.cache
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.AssemblyInfoInputs.cache
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.AssemblyInfo.cs
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.csproj.CoreCompileInputs.cache
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.csproj.Up2Date
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.dll
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\refint\Nova.Infra.dll
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.pdb
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\ref\Nova.Infra.dll
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\bin\Debug\net9.0\Nova.Infra.runtimeconfig.json
+C:\Users\fabio\Desktop\NovaApi\Nova.Infra\obj\Debug\net9.0\Nova.Infra.genruntimeconfig.cache
