@@ -1,128 +1,85 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Nova.Api.Dtos;
-using Nova.Application;
+using Nova.Domain.Dtos;
 using Nova.Domain;
+using Nova.Domain.Interfaces.Services;
 
+namespace Nova.Api.Controllers;
 
-namespace NovaApi.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class ContaController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ContaController : ControllerBase
+    private readonly IContaService _service;
+
+    public ContaController(IContaService service)
     {
-        private readonly ContaService _contaService;
+        _service = service;
+    }
 
-        public ContaController(ContaService contaService)
+    [HttpGet]
+    public async Task<ActionResult<List<ContaBancaria>>> Listar()
+    {
+        var contas = await _service.Listar();
+        return Ok(contas);
+    }
+
+    [HttpGet("{numeroConta}")]
+    public async Task<ActionResult<ContaBancaria>> Obter(int numeroConta)
+    {
+        var conta = await _service.ObterPorNumero(numeroConta);
+
+        if (conta == null)
+            return NotFound("Conta não encontrada.");
+
+        return Ok(conta);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Criar([FromBody] CriarContaRequest request)
+    {
+        try
         {
-            _contaService = contaService;
+            await _service.CriarConta(request.NumeroConta, request.Titular, request.SaldoInicial);
+            return Created("", "Conta criada com sucesso.");
         }
-
-        [HttpPost("depositar")]
-        public IActionResult Depositar([FromBody] DepositoRequest request)
+        catch (Exception ex)
         {
-            try
-            {
-                var conta = _contaService.Depositar(request.NumeroConta, request.Valor);
-                return Ok(Mapear(conta));
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new ErrorResponse { Mensagem = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return BadRequest(ex.Message);
         }
+    }
 
-        [HttpGet("{numeroConta}")]
-        public IActionResult ObterConta(int numeroConta)
+    [HttpPost("depositar")]
+    public async Task<ActionResult> Depositar([FromBody] OperacaoRequest request)
+    {
+        try
         {
-            var conta = _contaService.ObterConta(numeroConta);
-
-            if (conta == null)
-                return NotFound("Conta não encontrada");
-
-            return Ok(Mapear(conta));
+            await _service.Depositar(request.NumeroConta, request.Valor);
+            return Ok("Depósito realizado com sucesso.");
         }
-
-        [HttpPost("sacar")]
-        public IActionResult Sacar([FromBody] SaqueRequest request)
+        catch (Exception ex)
         {
-            try
-            {
-                var conta = _contaService.Sacar(request.NumeroConta, request.Valor);
-                return Ok(Mapear(conta));
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new ErrorResponse { Mensagem = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new ErrorResponse { Mensagem = ex.Message });
-            }
+            return BadRequest(ex.Message);
         }
+    }
 
-        [HttpGet]
-        public IActionResult ListarContas()
+    [HttpPost("sacar")]
+    public async Task<ActionResult> Sacar([FromBody] OperacaoRequest request)
+    {
+        try
         {
-            var contas = _contaService.ListarContas();
-
-            var response = contas.Select(c => Mapear(c));
-
-            return Ok(response);
+            await _service.Sacar(request.NumeroConta, request.Valor);
+            return Ok("Saque realizado com sucesso.");
         }
-
-        [HttpPost]
-        public IActionResult CriarConta(CriarContaRequest request)
+        catch (Exception ex)
         {
-            try
-            {
-                var conta = _contaService.CriarConta(
-                    request.NumeroConta,
-                    request.Titular,
-                    request.SaldoInicial
-                );
-
-                return CreatedAtAction(
-                    nameof(ObterConta),
-                    new { numeroConta = conta.NumeroConta },
-                    Mapear(conta)
-                );
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ErrorResponse { Mensagem = ex.Message });
-            }
+            return BadRequest(ex.Message);
         }
+    }
 
-        [HttpDelete("{numeroConta}")]
-        public IActionResult RemoverConta(int numeroConta)
-        {
-            try
-            {
-                _contaService.RemoverConta(numeroConta);
-                return NoContent();
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(new ErrorResponse { Mensagem = ex.Message });
-            }
-        }
-
-        private static ContaResponse Mapear(ContaBancaria conta)
-        {
-            return new ContaResponse
-            {
-                NumeroConta = conta.NumeroConta,
-                Titular = conta.Titular,
-                Saldo = conta.Saldo
-            };
-        }
+    [HttpDelete("{numeroConta}")]
+    public async Task<ActionResult> Remover(int numeroConta)
+    {
+        await _service.Remover(numeroConta);
+        return Ok("Conta removida com sucesso.");
     }
 }

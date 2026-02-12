@@ -1,75 +1,66 @@
 ﻿using Nova.Domain;
-using Nova.Domain.Repositories;
+using Nova.Domain.Interfaces.Services;
+using Nova.Domain.Interfaces.Repositories;
 
 namespace Nova.Application;
 
-public class ContaService
+public class ContaService : IContaService
 {
     private readonly IContaBancariaRepository _repository;
+
     public ContaService(IContaBancariaRepository repository)
     {
         _repository = repository;
     }
 
-    public ContaBancaria Depositar(int NumeroConta, decimal valor)
+    public async Task<ContaBancaria?> ObterPorNumero(int numeroConta)
     {
-        var conta = _repository.ObterPorNumero(NumeroConta);
-
-        if (conta == null)
-            throw new InvalidOperationException("Conta não encontrada");
-
-        conta.Depositar(valor);
-
-        _repository.Atualizar(conta);
-
-        return conta;
+        return await _repository.ObterPorNumero(numeroConta);
     }
 
-    public ContaBancaria? ObterConta(int numeroConta)
+    public async Task<List<ContaBancaria>> Listar()
     {
-        return _repository.ObterPorNumero(numeroConta);
+        return await _repository.Listar();
     }
 
-    public ContaBancaria Sacar(int numeroConta, decimal valor)
+    public async Task CriarConta(int numeroConta, string titular, decimal saldoInicial)
     {
-        var conta = _repository.ObterPorNumero(numeroConta);
+        var contaExistente = await _repository.ObterPorNumero(numeroConta);
 
-        if (conta == null)
-            throw new InvalidOperationException("Conta não encontrada");
-
-        conta.Sacar(valor);
-
-        _repository.Atualizar(conta);
-
-        return conta;
-    }
-
-    public List<ContaBancaria> ListarContas()
-    {
-        return _repository.Listar();
-    }
-
-    public ContaBancaria CriarConta(int numeroConta, string titular, decimal saldoInicial)
-    {
-        var existente = _repository.ObterPorNumero(numeroConta);
-        if (existente != null)
-            throw new InvalidOperationException("Conta já existe");
+        if (contaExistente != null)
+            throw new Exception("Já existe uma conta com esse número.");
 
         var conta = new ContaBancaria(numeroConta, titular, saldoInicial);
 
-        _repository.Adicionar(conta);
-
-        return conta;
+        await _repository.Adicionar(conta);
     }
 
-
-    public void RemoverConta(int numeroConta)
+    public async Task Depositar(int numeroConta, decimal valor)
     {
-        var conta = _repository.ObterPorNumero(numeroConta);
+        var conta = await _repository.ObterPorNumero(numeroConta);
 
         if (conta == null)
-            throw new InvalidOperationException("Conta não encontrada");
+            throw new Exception("Conta não encontrada.");
 
-        _repository.Remover(numeroConta);
+        conta.Depositar(valor);
+
+        await _repository.Atualizar(conta);
+    }
+
+    public async Task Sacar(int numeroConta, decimal valor)
+    {
+        var conta = await _repository.ObterPorNumero(numeroConta);
+
+        if (conta == null)
+            throw new Exception("Conta não encontrada.");
+
+        conta.Sacar(valor);
+
+        await _repository.Atualizar(conta);
+    }
+
+    public async Task Remover(int numeroConta)
+    {
+        await _repository.Remover(numeroConta);
     }
 }

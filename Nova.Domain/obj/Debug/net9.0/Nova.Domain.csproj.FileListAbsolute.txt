@@ -5,6 +5,7 @@ C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\Nova.Domain.Generate
 C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\Nova.Domain.AssemblyInfoInputs.cache
 C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\Nova.Domain.AssemblyInfo.cs
 C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\Nova.Domain.csproj.CoreCompileInputs.cache
+C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\Nova.Domain.sourcelink.json
 C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\Nova.Domain.dll
 C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\refint\Nova.Domain.dll
 C:\Users\fabio\Desktop\NovaApi\Nova.Domain\obj\Debug\net9.0\Nova.Domain.pdb

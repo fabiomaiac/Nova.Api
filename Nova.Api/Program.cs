@@ -1,8 +1,9 @@
 using Nova.Application;
-using Nova.Domain.Repositories;
 using Nova.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Nova.Infra.Data;
+using Nova.Domain.Interfaces.Repositories;
+using Nova.Domain.Interfaces.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddOpenApi();
 
 // Injeção de dependência
 builder.Services.AddScoped<IContaBancariaRepository, ContaBancariaRepository>();
-builder.Services.AddScoped<ContaService>();
+builder.Services.AddScoped<IContaService, ContaService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

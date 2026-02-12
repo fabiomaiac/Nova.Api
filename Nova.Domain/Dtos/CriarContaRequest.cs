@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Nova.Api.Dtos
+namespace Nova.Domain.Dtos
 {
-    public class ContaResponse
+    public class CriarContaRequest
     {
         public int NumeroConta { get; set; }
         public string Titular { get; set; } = string.Empty;
-        public decimal Saldo { get; set; }
+        public decimal SaldoInicial { get; set; }
     }
 }

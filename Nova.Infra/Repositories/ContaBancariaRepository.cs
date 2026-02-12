@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Nova.Domain;
-using Nova.Domain.Repositories;
+using Nova.Domain.Interfaces.Repositories;
 using Nova.Infra.Data;
 
 namespace Nova.Infra.Repositories;
@@ -14,36 +14,38 @@ public class ContaBancariaRepository : IContaBancariaRepository
         _context = context;
     }
 
-    public ContaBancaria? ObterPorNumero(int numeroConta)
+    public async Task<ContaBancaria?> ObterPorNumero(int numeroConta)
     {
-        return _context.Contas
-            .FirstOrDefault(c => c.NumeroConta == numeroConta);
+        return await _context.Contas
+            .FirstOrDefaultAsync(c => c.NumeroConta == numeroConta);
     }
 
-    public List<ContaBancaria> Listar()
+    public async Task<List<ContaBancaria>> Listar()
     {
-        return _context.Contas.ToList();
+        return await _context.Contas
+            .ToListAsync();
     }
 
-    public void Adicionar(ContaBancaria conta)
+    public async Task Adicionar(ContaBancaria conta)
     {
         _context.Contas.Add(conta);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Atualizar(ContaBancaria conta)
+    public async Task Atualizar(ContaBancaria conta)
     {
-        _context.SaveChanges();
+        _context.Contas.Update(conta);
+        await _context.SaveChangesAsync();
     }
 
-    public void Remover(int numeroConta)
+    public async Task Remover(int numeroConta)
     {
-        var conta = ObterPorNumero(numeroConta);
+        var conta = await ObterPorNumero(numeroConta);
 
         if (conta == null)
             return;
 
         _context.Contas.Remove(conta);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }

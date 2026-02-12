@@ -9,20 +9,20 @@ public class ContaBancaria
     protected ContaBancaria() { }
 
     public ContaBancaria(int numeroConta, string titular, decimal saldoInicial)
-{
-    if (numeroConta <= 0)
-        throw new Exception("Número da conta inválido");
+    {
+        if (numeroConta <= 0)
+            throw new Exception("Número da conta inválido");
 
-    if (string.IsNullOrWhiteSpace(titular))
-        throw new Exception("Titular inválido");
+        if (string.IsNullOrWhiteSpace(titular))
+            throw new Exception("Titular inválido");
 
-    if (saldoInicial < 0)
-        throw new Exception("Saldo inicial não pode ser negativo");
+        if (saldoInicial < 0)
+            throw new Exception("Saldo inicial não pode ser negativo");
 
-    NumeroConta = numeroConta;
-    Titular = titular;
-    Saldo = saldoInicial;
-}
+        NumeroConta = numeroConta;
+        Titular = titular;
+        Saldo = saldoInicial;
+    }
 
 
     public void Depositar(decimal valor)

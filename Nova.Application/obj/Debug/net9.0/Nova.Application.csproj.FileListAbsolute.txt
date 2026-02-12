@@ -8,6 +8,7 @@ C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\Nova.Applicatio
 C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\Nova.Application.AssemblyInfoInputs.cache
 C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\Nova.Application.AssemblyInfo.cs
 C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\Nova.Application.csproj.CoreCompileInputs.cache
+C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\Nova.Application.sourcelink.json
 C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\Nova.App.2665D04C.Up2Date
 C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\Nova.Application.dll
 C:\Users\fabio\Desktop\NovaApi\Nova.Application\obj\Debug\net9.0\refint\Nova.Application.dll
